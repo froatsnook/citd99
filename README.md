@@ -12,6 +12,10 @@ Bugs
 ====
 This will probably break when the next version of Castle in the Darkness is released.
 
+Analytics
+=========
+I'm using google analytics to track how many people use it and to detect when it breaks.
+
 Installation
 ============
 If you want to run it locally, just clone and run meteor.

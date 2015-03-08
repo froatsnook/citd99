@@ -18,6 +18,14 @@ Template.home.events({
             var len = arrayBuffer.byteLength;
             var uint8Array = new Uint8Array(arrayBuffer);
 
+            if (len < 595) {
+                text.text("That doesn't look like a 99% completion save file.  Please open a support issue on GitHub (unless you made a mistake)");
+                if (window._gaq) {
+                    window._gaq.push(["_trackEvent", "Upload", "fail", "len=" + len + "!"]);
+                }
+                return;
+            }
+
             if (uint8Array[594] === 99) {
                 uint8Array[594] = 100;
                 var blob = new Blob([uint8Array]);
@@ -25,8 +33,15 @@ Template.home.events({
                 setTimeout(function() {
                     saveAs(blob, file.name);
                 }, 1000);
+
+                if (window._gaq) {
+                    window._gaq.push(["_trackEvent", "Upload", "success", "len=" + len]);
+                }
             } else {
                 text.text("That doesn't look like a 99% completion save file.  Please open a support issue on GitHub (unless you made a mistake)");
+                if (window._gaq) {
+                    window._gaq.push(["_trackEvent", "Upload", "fail", "len=" + len + " x[594]=" + uint8Array[594]]);
+                }
             }
         };
 

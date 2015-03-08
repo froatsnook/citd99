@@ -20,8 +20,8 @@ Template.home.events({
 
             if (len < 595) {
                 text.text("That doesn't look like a 99% completion save file.  Please open a support issue on GitHub (unless you made a mistake)");
-                if (window._gaq) {
-                    window._gaq.push(["_trackEvent", "Upload", "fail", "len=" + len + "!"]);
+                if (window.ga) {
+                    window.ga("send", "event", "Upload", "fail", "len=" + len + "!");
                 }
                 return;
             }
@@ -34,13 +34,13 @@ Template.home.events({
                     saveAs(blob, file.name);
                 }, 1000);
 
-                if (window._gaq) {
-                    window._gaq.push(["_trackEvent", "Upload", "success", "len=" + len]);
+                if (window.ga) {
+                    window.ga("send", "event", "Upload", "success", "len=" + len);
                 }
             } else {
                 text.text("That doesn't look like a 99% completion save file.  Please open a support issue on GitHub (unless you made a mistake)");
-                if (window._gaq) {
-                    window._gaq.push(["_trackEvent", "Upload", "fail", "len=" + len + " x[594]=" + uint8Array[594]]);
+                if (window.ga) {
+                    window.ga("send", "event", "Upload", "fail", "len=" + len + " x[594]=" + uint8Array[594]);
                 }
             }
         };
